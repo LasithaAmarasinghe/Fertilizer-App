@@ -1,0 +1,58 @@
+========================================
+   QUICK START GUIDE
+========================================
+
+STEP 1: Install Dependencies
+-----------------------------
+Open Command Prompt in this folder and run:
+    pip install -r requirements.txt
+
+STEP 2: Start the Backend Server
+---------------------------------
+Option A: Double-click "start_server.bat"
+Option B: Run in Command Prompt: python app.py
+
+The server will start at: http://localhost:5000
+
+STEP 3: Open the Web Interface
+-------------------------------
+Open "index.html" in your web browser
+(Chrome, Firefox, Edge, or Safari)
+
+STEP 4: Use the App
+-------------------
+1. Upload a leaf image (drag & drop or click)
+2. Click "Analyze Leaf"
+3. View AI diagnosis and recommendations
+
+========================================
+
+TROUBLESHOOTING
+===============
+
+Problem: "Python not found"
+Solution: Install Python 3.8+ from python.org
+
+Problem: "Module not found"
+Solution: Run: pip install -r requirements.txt
+
+Problem: "Model file not found"
+Solution: Ensure plant_village_model_v1.keras is in this folder
+
+Problem: "Port 5000 already in use"
+Solution: Close other apps using port 5000 or modify port in app.py
+
+Problem: "Cannot connect to server"
+Solution: Make sure start_server.bat is running (keep window open)
+
+========================================
+
+MODEL CLASSIFICATIONS
+=====================
+- Early Blight: Dark spots with concentric rings
+- Late Blight: Water-soaked lesions, rapid spread
+- Healthy: Normal green tissue
+
+========================================
+
+For more information, see README.md

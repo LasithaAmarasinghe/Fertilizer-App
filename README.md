@@ -1,49 +1,156 @@
-# Fertilizer App: Potato Disease Identification 🌱🦠
+# 🌿 Plant Leaf Analyzer - AI-Powered Fertilizer Recommendation App
 
-The **Fertilizer App** is designed to help identify common potato leaf diseases using deep learning models. Currently, the model is trained to classify potato leaves into three categories:
+A web application that uses a TensorFlow Keras model to analyze plant leaf images and provide fertilizer recommendations based on detected diseases.
 
-- **Early Blight** 🌿
-- **Late Blight** 🍂
-- **Healthy** ✅
+## Features
 
-In the future, this app will be generalized to support more crop diseases and broader agricultural applications.
+- **AI-Powered Detection**: Uses PlantVillage model to classify leaves with confidence scores
+- **Disease Detection**: Identifies Early Blight, Late Blight, and Healthy leaves
+- **Fertilizer Recommendations**: Provides detailed fertilizer suggestions including:
+  - Primary treatment with NPK ratios
+  - Secondary supplements
+  - Application schedule
+  - Care tips
+- **Nutrient Analysis**: Visual representation of nutrient levels
+- **Severity Indicator**: Shows the severity level of detected issues
+- **Responsive Design**: Works on desktop and mobile devices
 
-## Features 🎉
+## Model Capabilities
 
-- **Disease Detection**: Uses a TensorFlow model to predict diseases in potato leaves from uploaded images.
-- **Model Inference**: Upload an image of a potato leaf, and the model will predict if the leaf is healthy or affected by diseases like Early Blight or Late Blight.
-- **Future Expansion**: The model is being generalized to support other crops and their respective diseases.
+The integrated `plant_village_model_v1.keras` model classifies leaves into:
+- **Early Blight** - Fungal disease (Alternaria solani) with dark concentric spots
+- **Late Blight** - Severe water mold disease (Phytophthora infestans)
+- **Healthy** - Normal, healthy leaf tissue with maintenance recommendations
 
-## CNN Architecture🍃
+## Installation
 
-The deep learning model used is based on a **Convolutional Neural Network (CNN)**, which is highly effective for image classification tasks.
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
 
-### Key Components
+### Setup Steps
 
-1. **Preprocessing Layers:**
-   - **Resizing**: The images are resized to 256x256 pixels to standardize the input size for the network.
-   - **Rescaling**: Image pixel values are rescaled by dividing by 255, converting the pixel values into the range [0, 1].
+1. **Install Python Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-2. **Data Augmentation:**
-   - **Random Flip**: Images are randomly flipped both horizontally and vertically to simulate various real-world conditions and improve model generalization.
-   - **Random Rotation**: The images are randomly rotated by up to 20% to enhance the model’s ability to recognize potato diseases under different orientations.
+2. **Verify Model File**
+   Ensure `plant_village_model_v1.keras` is in the app directory
 
-3. **Convolutional Layers:**
-   - **Conv2D**: Several convolutional layers with 32 and 64 filters are used to extract important features from the potato leaf images.
-   - **ReLU Activation**: The ReLU activation function is applied after each convolutional layer to introduce non-linearity and help the model learn complex patterns in the images.
+## Running the Application
 
-4. **Max-Pooling Layers:**
-   - **MaxPooling2D**: Max-pooling layers are used after each convolutional layer with a pool size of 2x2 to reduce the spatial dimensions of the feature maps, retaining only the most relevant information.
+### Method 1: Using the Batch Script (Windows)
+Simply double-click `start_server.bat`
 
-5. **Fully Connected Layers:**
-   - **Flatten**: After the convolutional and pooling layers, the feature maps are flattened into a 1D vector to be fed into fully connected layers.
-   - **Dense Layer (64 units)**: A fully connected layer with 64 units is used to connect the features extracted by the convolutional layers to the final output.
-   - **Output Layer**: The output layer has 3 units, one for each class (**Early Blight**, **Late Blight**, **Healthy**), with a **softmax activation** to output the class probabilities.
+### Method 2: Manual Start
+```bash
+python app.py
+```
 
-### Summary of Layers:
-- **Input**: Resized 256x256x3 (RGB) image
-- **Conv2D Layers**: 32 and 64 filters with ReLU activation
-- **MaxPooling2D Layers**: Pooling with a 2x2 filter size
-- **Dense Layers**: 64 units followed by the final softmax output layer
+The backend server will start on `http://localhost:5000`
 
-This architecture was implemented using **TensorFlow** and **Keras** to ensure efficient model training and inference. The model was trained on potato leaf images and uses data augmentation techniques to improve generalization and robustness.
+### Using the Web Interface
+
+1. Start the backend server (using one of the methods above)
+2. Open `index.html` in your web browser
+3. Upload a leaf image (drag & drop or click to browse)
+4. Click "Analyze Leaf" button
+5. View AI-powered diagnosis with confidence scores and fertilizer recommendations
+
+## API Endpoints
+
+### POST /predict
+Accepts an image file and returns classification results
+
+**Request:**
+- Method: POST
+- Content-Type: multipart/form-data
+- Body: image file
+
+**Response:**
+```json
+{
+  "success": true,
+  "prediction": "Early_Blight",
+  "confidence": 0.95,
+  "probabilities": {
+    "Early_Blight": 0.95,
+    "Late_Blight": 0.03,
+    "Healthy": 0.02
+  }
+}
+```
+
+### GET /health
+Health check endpoint to verify server status
+
+## Technologies Used
+
+- HTML5
+- CSS3 (with gradients and animations)
+- Vanilla JavaScript
+- No external dependencies required
+
+## File Structure
+
+```
+Fertilizer App/
+├── index.html                      # Frontend interface
+├── styles.css                      # Styling and animations
+├── script.js                       # Frontend logic with API integration
+├── app.py                          # Flask backend server
+├── requirements.txt                # Python dependencies
+├── plant_village_model_v1.keras   # TensorFlow model
+├── start_server.bat               # Windows startup script
+└── README.md                       # Documentation
+```
+
+## Technology Stack
+
+**Frontend:**
+- HTML5, CSS3, JavaScript
+- Fetch API for backend communication
+
+**Backend:**
+- Flask (Python web framework)
+- TensorFlow/Keras (ML model inference)
+- Flask-CORS (Cross-origin support)
+- Pillow (Image processing)
+
+**Model:**
+- TensorFlow Keras model trained on PlantVillage dataset
+- Input: 256x256 RGB images
+- Output: 3 classes (Early_Blight, Late_Blight, Healthy)
+
+## Troubleshooting
+
+### Server won't start
+- Verify Python is installed: `python --version`
+- Install dependencies: `pip install -r requirements.txt`
+- Check if port 5000 is available
+
+### Model prediction fails
+- Ensure model file exists and is not corrupted
+- Check image format (PNG, JPG supported)
+- Verify image is a valid RGB image
+
+### CORS errors
+- Make sure Flask-CORS is installed
+- Verify API_URL in script.js matches server address
+- Ensure backend server is running
+
+## Future Enhancements
+
+- Support for more plant diseases and crops
+- Mobile app version (React Native/Flutter)
+- User accounts and analysis history tracking
+- Batch image processing
+- Multilingual support
+- Integration with agricultural databases
+- Real-time disease progression monitoring
+- Weather-based recommendations
+
+## License
+
+Free to use for educational and personal projects.

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Leaf Analyzer - Fertilizer Recommendation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌿 Fertilizer App</h1>
+            <p class="subtitle">Upload leaf images for disease detection and fertilizer recommendations</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <div class="upload-box" id="uploadBox">
+                    <svg class="upload-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p class="upload-text">Click to upload or drag and drop</p>
+                    <p class="upload-subtext">PNG, JPG up to 10MB</p>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                </div>
+                
+                <div class="preview-section" id="previewSection" style="display: none;">
+                    <img id="imagePreview" src="" alt="Uploaded leaf image">
+                    <button class="btn btn-secondary" id="changeImageBtn">Change Image</button>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="analyzeBtn" disabled>Analyze Leaf</button>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="result-card diagnosis-card">
+                    <h2>🔍 Diagnosis Results</h2>
+                    <div class="diagnosis-content">
+                        <div class="status-badge" id="statusBadge"></div>
+                        <h3 id="diagnosisTitle"></h3>
+                        <p id="diagnosisDescription"></p>
+                        <div class="confidence-display" id="confidenceDisplay" style="margin: 15px 0; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                            <strong>AI Model Confidence:</strong> <span id="confidenceValue"></span>
+                        </div>
+                        <div class="severity-indicator">
+                            <span class="label">Severity Level:</span>
+                            <div class="severity-bar">
+                                <div class="severity-fill" id="severityFill"></div>
+                            </div>
+                            <span id="severityText"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card recommendations-card">
+                    <h2>💊 Fertilizer Recommendations</h2>
+                    <div class="recommendations-content">
+                        <div class="primary-fertilizer">
+                            <h3>Primary Treatment</h3>
+                            <div class="fertilizer-item">
+                                <div class="fertilizer-icon">🌱</div>
+                                <div class="fertilizer-details">
+                                    <h4 id="primaryFertilizer"></h4>
+                                    <p id="primaryComposition"></p>
+                                    <p class="dosage" id="primaryDosage"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="secondary-fertilizers">
+                            <h3>Additional Supplements</h3>
+                            <div id="secondaryFertilizers"></div>
+                        </div>
+
+                        <div class="application-schedule">
+                            <h3>Application Schedule</h3>
+                            <ul id="scheduleList"></ul>
+                        </div>
+
+                        <div class="care-tips">
+                            <h3>Care Tips</h3>
+                            <ul id="careTipsList"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card nutrients-card">
+                    <h2>📊 Nutrient Deficiency Analysis</h2>
+                    <div class="nutrients-grid" id="nutrientsGrid"></div>
+                </div>
+
+                <button class="btn btn-secondary" id="newAnalysisBtn">New Analysis</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Plant Leaf Analyzer | AI-Powered Plant Health Monitoring</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
